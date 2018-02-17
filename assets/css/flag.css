@@ -1,0 +1,399 @@
+html {
+    min-width: 400px
+}
+
+html body {
+    color: #333333;
+}
+
+#app .main {
+    border: 1px solid #EAEAEA;
+    background-color: #FAFAFA;
+    border-top: 5px solid #333333;
+}
+
+.top {
+    clear: both;
+    overflow: hidden;
+    margin-bottom: -11px;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.top .left,
+.top .right,
+.top .center {
+    display: none;
+}
+
+.top .joined {
+    text-align: center;
+}
+
+.remaining-flags {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.topbar {
+    display: flex;
+    flex-flow: column;
+}
+
+.controls {
+    order: 2;
+}
+
+.progress {
+    order: 1;
+}
+
+.progress .wr-score {
+    float: left;
+}
+
+.progress .wr-time h3,
+.progress .wr-score h3 {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.progress .wr-time>*,
+.progress .wr-score>* {
+    display: inline-block;
+}
+
+.progress .wr-time {
+    float: right;
+}
+
+#search-div {
+    position: relative;
+}
+
+.controls {
+    width: max-content;
+    margin: 0 auto;
+}
+
+#background-input {
+    position: absolute;
+    color: #999999;
+    width: 200px;
+}
+
+#search {
+    position: relative;
+    background: transparent;
+    width: 200px;
+
+    -moz-transform: all 500ms;
+    transition: all 500ms;
+    -webkit-transform: all 500ms;
+}
+
+#search.correct{
+    border: 1px solid rgba(39, 174, 96,1.0);
+    background-color:rgba(39, 174, 96,0.2);
+}
+
+#search.incorrect{
+    border: 1px solid rgba(192, 57, 43,1.0);
+    background-color:rgba(192, 57, 43,0.2);
+}
+
+@media screen and (min-width: 576px) {
+    .top .left,
+    .top .right {
+        display: block;
+    }
+    .top .left {
+        float: left;
+    }
+    .top .right {
+        float: right;
+    }
+    .top .joined {
+        display: none;
+    }
+    .main .current .current-image {
+        height: 300px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main .settings {
+        grid-template-areas: "continents help" "duration duration";
+        grid-template-columns: 1fr 1fr;
+    }
+    .progress>* {
+        display: inline-block;
+        padding: 0 20px;
+    }
+    .top .center {
+        display: block;
+        display: inline-block;
+        margin: 0 auto;
+        width: 100px;
+    }
+    .remaining-flags {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .topbar {
+        display: block;
+    }
+    .progress .wr-score,
+    .progress .wr-time {
+        float: initial;
+    }
+    .progress .wr-time h3,
+    .progress .wr-score h3 {
+        font-weight: initial;
+    }
+    .progress .wr-time>*,
+    .progress .wr-score>* {
+        display: block;
+    }
+    #background-input {
+        width: 245px;
+    }
+    #search {
+        width: 245px;
+    }
+    .controls {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .remaining-flags {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .main .settings {
+        grid-template-areas: "continents duration help";
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .remaining-flags {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+.main {
+    padding: 0 20px;
+}
+
+.menu {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.topbar {
+    clear: both;
+    overflow: hidden;
+}
+
+.controls {
+    float: left;
+}
+
+.controls h3 {
+    display: block;
+    margin-bottom: 0px;
+}
+
+.progress {
+    float: right;
+}
+
+.controls>* {
+    display: inline-block;
+}
+
+.controls>button {
+    height: initial;
+    padding: 0 10px;
+    background-color: #333333;
+    color: #EAEAEA;
+}
+
+.controls>button:hover {
+    background-color: #FAFAFA;
+    color: #333333;
+}
+
+.current {
+    padding: 20px;
+    text-align: center;
+    min-height: 300px;
+    background-image: url("../img/spinner.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.current .current-image {
+    height: auto;
+    max-width: 100%;
+}
+
+.remaining-flags {
+    display: grid;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Finished .remaining-flags{
+    grid-gap: 10px 0;
+}
+
+.flag {
+    display: grid;
+    grid-template-rows: auto minmax(25px, auto);
+    cursor: pointer;
+}
+
+.flag>* {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.credits {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.8em;
+    color: #9facbd;
+}
+
+.credits a {
+    color: #ff8200;
+}
+
+.africa {
+    color: #000000;
+}
+
+.asia {
+    color: #d9af00;
+}
+
+.europe {
+    color: #3e76ec;
+}
+
+.oceania {
+    color: #179a13;
+}
+
+.north-america {
+    color: #ff0000;
+}
+
+.south-america {
+    color: #ff0000;
+}
+
+.help .s-controls,
+.continents .s-controls {
+    list-style: none;
+    width: max-content;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.help .s-controls li,
+.continents .s-controls .continent {
+    margin: 0;
+}
+
+.help .s-controls li>*,
+.continents .s-controls .continent>* {
+    display: inline-block;
+    font-weight: 400
+}
+
+.settings {
+    display: grid;
+    grid-template-areas: "continents" "duration" "help";
+    grid-template-columns: 1fr;
+}
+
+.continents {
+    grid-area: continents;
+}
+
+.duration {
+    grid-area: duration;
+}
+
+.help {
+    grid-area: help;
+}
+
+.text-overlay div {
+    position: absolute;
+    margin-top: 1.5rem;
+    padding: 6px 10px;
+    top: 0;
+    background: white;
+    right: 0;
+    border: 1px solid #D1D1D1;
+    border-radius: 0 4px 4px 0;
+    border-left: 0;
+}
+
+.text-overlay {
+    position: relative;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.text-overlay input{
+    margin-bottom: 0px;
+}
+
+.error-message {
+    color: #ff0000;
+}
+
+.info{
+    font-style: italic;
+}
+
+.help-controls-title{
+    margin-top: 1rem;
+}
+
+.help-controls small{
+display: block;
+font-style: italic;
+}
+
+h1.title{
+    margin-bottom:3rem;
+}
+
+.Finished .flag{
+    cursor: initial;
+}
+
+.help .invisible {
+    visibility: hidden;
+}
+
+.extra-buttons{
+    padding-bottom: 1rem;
+    border-bottom: 3px solid;
+    text-align: right;
+    cursor: pointer;
+}
+.extra-buttons > div {
+    display: inline-block;
+	padding:0 10px;
+}
+
+.current-image{
+background-color:#FAFAFA;
+}

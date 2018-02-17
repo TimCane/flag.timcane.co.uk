@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98351551-6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-98351551-6');
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ff8200">
+    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ff8200">
+
+    <title>Flag Quiz | Tim Cane</title>
+
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/lib/bones.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/flag.css">
+
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/quiz2.css">-->
+
+
+    <script src="assets/js/lib/jquery.min.js"></script>
+    <script src="assets/js/lib/knockout.min.js"></script>
+    <script src="assets/js/lib/knockout-mapping.min.js"></script>
+
+    <script src="assets/js/app.js" defer="defer"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top">
+            <div class="joined">
+                <img src="assets/img/joinedFlags.png" alt="10 of our favourite flags">
+            </div>
+            <div class="left">
+                <img src="assets/img/leftFlags.png" alt="5 of our favourite flags">
+            </div>
+            <div class="center">
+                <img src="assets/img/tcFlag.png" alt="my initials on a flags">
+            </div>
+            <div class="right">
+                <img src="assets/img/rightFlags.png" alt="5 of our favourite flags">
+            </div>
+        </div>
+        <div class="main" data-bind="css: gameState">
+            <div data-bind="if: gameState() == State.MENU" class="menu">
+                <h1 class="title">Who doesn't love a flag quiz!?</h1>
+                <div class="settings">
+                    <div class="continents">
+                        <h3>Continents</h3>
+                        <ul class="s-controls" data-bind="foreach: continents">
+                            <li class="continent">
+                                <input type="checkbox" data-bind="attr: {id: id}, checked: selected">
+                                <label class="label-body" data-bind="attr: {for: id}">
+                                    <span data-bind="text: name"></span>
+                                    <small data-bind="text: $parent.countriesInContinents(id)">
+                                    </small>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="duration">
+                        <h3>Duration</h3>
+                        <div class="s-controls">
+                            <div class="text-overlay">
+                                <input type="text" data-bind="textInput: duration">
+                                <div>minutes.</div>
+                            </div>
+                            <small class="info">1.5 represents 1 minute 30 seconds</small>
+                        </div>
+                    </div>
+                    <div class="help">
+                        <h3>Help</h3>
+                        <ul class="s-controls">
+                            <li>
+                                <input type="checkbox" id="cbTypeAhead" data-bind="checked: typeAhead">
+                                <label class="label-body" for="cbTypeAhead" title="Adds predictions on what country name you are typing">Enable Type ahead?</label>
+                            </li>
+                            <li data-bind="css: {invisible: !typeAhead()}">
+                                <input type="checkbox" id="cbTabComplete" data-bind="checked: tabComplete">
+                                <label class="label-body" for="cbTabComplete" title="Lets you auto complete the country name by pressing Tab/Enter">Enable Tab/Enter Completion?</label>
+                            </li>
+                            <li data-bind="css: {invisible: !typeAhead()}">
+                                <input type="checkbox" id="cbTypeAheadUnanswered" data-bind="checked: typeAheadUnswered">
+                                <label class="label-body" for="cbTypeAheadUnanswered" title="Should I only show predictions of countries not yet answered?">Type ahead only shows unanswered?</label>
+                            </li>
+                        </ul>
+                        <h3 class="help-controls-title">Controls</h3>
+                        <p class="help-controls">Left / Right arrow will change the current flag
+                            <small>whilst the textbox is selected</small>
+                        </p>
+                        <p class="help-controls">Tab / Enter key will auto type the prediction
+                            <small>(if enabled)</small>
+                        </p>
+                        <p class="help-controls">Click on any unanswered flag to select it
+                        </p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button data-bind="click: StartGame">Start</button>
+                    <div class="error-message" data-bind="text: errorMessage"></div>
+                </div>
+            </div>
+
+            <div data-bind="if: gameState() != State.MENU" class="game">
+                <div class="topbar">
+                    <div class="controls" data-bind="if: gameState() != State.FINISHED">
+                        <h3>Guess</h3>
+                        <button data-bind="click: Prev">
+                            <i class="fa fa-arrow-left"></i>
+                        </button>
+                        <div class="user-input">
+                            <input type="text" data-bind="textInput: prediction" id="background-input" />
+                            <input type="text" data-bind="textInput: guess, hasFocus: guessHasFocus, event: { keydown: CheckSkip }, css: guessFeedback"
+                                id="search" placeholder="" />
+                        </div>
+                        <button data-bind="click: Next">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="controls" data-bind="if: gameState() == State.FINISHED">
+                        <h3 data-bind="if: unAnswered().length > 0">Game Over</h3>
+                        <div data-bind="ifnot: unAnswered().length > 0">
+                            <h3>Congratulations!</h3>
+                            <p>You identified all the flags in
+                                <span data-bind="text: elapsedTime"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="wr-score">
+                            <h3>Score</h3>
+                            <div class="score h4">
+                                <span data-bind="text: score"></span> /
+                                <span data-bind="text: countries().length"></span>
+                            </div>
+                        </div>
+                        <div class="wr-time">
+                            <h3>Time</h3>
+                            <div class="time h4">
+                                <span data-bind="text: minutes"></span> :
+                                <span data-bind="text: seconds"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="if: gameState() != State.FINISHED">
+                    <div class="current" data-bind="with: currentCountry">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="The Current image" class="current-image"
+                            data-bind="attr: {src: imageSrc}">
+                    </div>
+                </div>
+                <div class="extra-buttons">
+                    <div class="give-up" data-bind="click: GiveUp, if: gameState() != State.FINISHED">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <span>Give up</span>
+                    </div>
+                    <div class="restart" data-bind="click: Restart">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                        <span>Restart?</span>
+                    </div>
+                </div>
+                <div class="remaining-flags" data-bind="foreach: unAnswered">
+                    <div class="flag" data-bind="click: $parent.SelectCountry">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="The Thumbnail" data-bind="attr: {src: thumbnailSrc}">
+                        <span data-bind="visible: $parent.gameState() == State.FINISHED, text: name"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="credits">
+        Built by
+        <a href="https://timcane.co.uk">Tim</a>
+        | Flags by
+        <a href="https://flagpedia.net/">Flagpedia</a>.
+    </div>
+</body>
+
+</html>
