@@ -97,6 +97,10 @@
                         <h3>Help</h3>
                         <ul class="s-controls">
                             <li>
+                                <input type="checkbox" id="cbRandomise" data-bind="checked: randomise">
+                                <label class="label-body" for="cbRandomise" title="Random Order?">Randomise order?</label>
+                            </li>
+                            <li>
                                 <input type="checkbox" id="cbTypeAhead" data-bind="checked: typeAhead">
                                 <label class="label-body" for="cbTypeAhead" title="Adds predictions on what country name you are typing">Enable Type ahead?</label>
                             </li>
@@ -179,7 +183,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         <span>Give up</span>
                     </div>
-                    <div class="restart" data-bind="click: Restart">
+                    <div class="restart" data-bind="click: Restart, if: gameState() == State.FINISHED">
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                         <span>Restart?</span>
                     </div>
@@ -194,10 +198,12 @@
         </div>
     </div>
     <div class="credits">
-        Built by
+        <span>Built by</span>
         <a href="https://timcane.co.uk">Tim</a>
-        | Flags by
-        <a href="https://flagpedia.net/">Flagpedia</a>.
+        <span>| Flags by</span>
+        <a href="https://flagpedia.net/">Flagpedia</a>
+        <span>| Inspiration from</span>
+        <a href="https://www.sporcle.com/games/RobPro/flags-of-the-world-progressively-harder">Sporcle</a>.
     </div>
 </body>
 

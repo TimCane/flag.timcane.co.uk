@@ -35,6 +35,7 @@ function FlagViewModel() {
     self.typeAhead = ko.observable(true);
     self.typeAheadUnswered = ko.observable(false);
     self.tabComplete = ko.observable(true);
+    self.randomise = ko.observable(true);
     //#endregion
 
     self.errorMessage = ko.observable("");
@@ -58,7 +59,11 @@ function FlagViewModel() {
         }
 
         self.countries(newCountryList);
-        self.Randomiser(self.countries);
+        
+        if(self.randomise()){
+            self.Randomiser(self.countries);
+        }
+        
     }
     self.SetupTimer = function () {
         self.timer(self.duration() * 60);
