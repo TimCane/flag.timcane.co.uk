@@ -1654,33 +1654,27 @@
 	"continents": [
 		{
 			"id": "africa",
-			"name": "Africa",
-			"selected": true
+			"name": "Africa"
 		},
 		{
 			"id": "asia",
-			"name": "Asia",
-			"selected": true
+			"name": "Asia"
 		},
 		{
 			"id": "europe",
-			"name": "Europe",
-			"selected": true
+			"name": "Europe"
 		},
 		{
 			"id": "oceania",
-			"name": "Oceania",
-			"selected": true
+			"name": "Oceania"
 		},
 		{
 			"id": "north-america",
-			"name": "North America",
-			"selected": true
+			"name": "North America"
 		},
 		{
 			"id": "south-america",
-			"name": "South America",
-			"selected": true
+			"name": "South America"
 		}
 	]
 }
