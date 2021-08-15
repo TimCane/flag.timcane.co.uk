@@ -1,10 +1,5 @@
-<ng-container *ngIf="loading == 0; else loadingBlock">
-
-
-  <flag-menu [continents]="continents" (onStart)="start($event)"></flag-menu>
-
-
-</ng-container>
-<ng-template #loadingBlock>
-  <flag-loading></flag-loading>
-</ng-template>
+<div [ngSwitch]="gameState">
+  <flag-loading *ngSwitchCase="'loading'"></flag-loading>
+  <flag-menu *ngSwitchCase="'menu'" (onStart)="start($event)"></flag-menu>
+  <flag-game *ngSwitchCase="'in-progress'"></flag-game>
+</div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { GameState } from './enums/game-state.enum';
 import { Config } from './models/config';
-import { Continent } from './models/continent';
-import { Country } from './models/country';
 import { Settings } from './models/settings';
 import { DataService } from './services/data.service';
+import { DataStore } from './stores/data.store';
 
 @Component({
   selector: 'flag-root',
@@ -11,16 +11,11 @@ import { DataService } from './services/data.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  gameState: GameState;
 
-  loading: number;
+  constructor(private data: DataService, private state: DataStore) {
 
-  countries: Country[];
-  continents: Continent[];
-
-  constructor(private data: DataService) {
-    this.loading = 0;
-    this.countries = [];
-    this.continents = [];
+    this.gameState = GameState.Loading;
   }
 
   ngOnInit(): void {
@@ -28,14 +23,12 @@ export class AppComponent implements OnInit {
   }
 
   getConfig() {
-    this.loading++;
     this.data.load()
       .subscribe(
         (config: Config) => {
-          this.countries = config.countries;
-          this.continents = config.continents;
+          this.state.setConfig(config);
 
-          this.loading--;
+          this.gameState = GameState.Menu;
         },
         (error) => {
           console.log(error);
@@ -43,8 +36,10 @@ export class AppComponent implements OnInit {
       );
   }
 
-  start(settings: Settings){
+  start(settings: Settings) {
     console.log("hello")
     console.log(settings);
+
+    this.gameState = GameState.InProgress;
   }
 }

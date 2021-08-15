@@ -3,7 +3,7 @@
     <div class="continents">
         Continents
         <div class="form-group">
-            <div class="form-checkbox" *ngFor="let continent of continents; index as i">
+            <div class="form-checkbox" *ngFor="let continent of continents$ | async; index as i">
                 <input class="checkbox-input" [id]="continent.id" type="checkbox" checked [value]="continent.id"
                     (change)="onContinentChange($event)">
                 <label class="checkbox-label" [for]="continent.id">
