@@ -12,13 +12,13 @@ import { SettingsStore } from 'src/app/stores/settings.store';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  @Output() onStart: EventEmitter<Settings>;
+  @Output() onStart: EventEmitter<void>;
 
   form: FormGroup;
 
   //#region Form Elements
-  get continentArray(): FormArray {
-    return this.form.get("continentArray") as FormArray;
+  get selectedContinents(): FormArray {
+    return this.form.get("selectedContinents") as FormArray;
   }
 
   get duration(): FormControl {
@@ -47,10 +47,10 @@ export class MenuComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder, private state: DataStore, private settings: SettingsStore) {
-    this.onStart = new EventEmitter<Settings>();
+    this.onStart = new EventEmitter<void>();
 
     this.form = this.fb.group({
-      continentArray: this.fb.array([], [Validators.required]),
+      selectedContinents: this.fb.array([], [Validators.required]),
       duration: this.fb.control(this.settings.duration, [Validators.required, Validators.min(0)]),
       randomise: this.fb.control(this.settings.randomise),
       typeAhead: this.fb.control(this.settings.typeAhead),
@@ -60,19 +60,26 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.state.continents.forEach(continent => this.continentArray.push(new FormControl(continent.id)))
+
+    var options: string[] = [];
+    this.state.continents.forEach(continent => {
+      this.selectedContinents.push(new FormControl(continent.id))
+      options.push(continent.id);
+    });
+
+    this.settings.selectedContinents = options;
   }
 
   onContinentChange(event: any) {
     if (event.target.checked) {
-      this.continentArray.push(new FormControl(event.target.value));
+      this.selectedContinents.push(new FormControl(event.target.value));
     }
     else {
       let i: number = 0;
 
-      this.continentArray.controls.forEach((ctrl: AbstractControl) => {
+      this.selectedContinents.controls.forEach((ctrl: AbstractControl) => {
         if (ctrl.value == event.target.value) {
-          this.continentArray.removeAt(i);
+          this.selectedContinents.removeAt(i);
           return;
         }
 
@@ -83,10 +90,8 @@ export class MenuComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-
-      this.settings.duration = this.form.value.duration;
-
-      //this.onStart.emit(this.form.value);
+      this.settings.update(this.form.value);
+      this.onStart.emit();
     }
   }
 }

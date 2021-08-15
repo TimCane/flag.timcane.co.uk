@@ -7,6 +7,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameComponent } from './components/game/game.component';
+import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { GameComponent } from './components/game/game.component';
     LoadingComponent,
     MenuComponent,
     GameComponent,
+    CountdownTimerComponent,
   ],
   imports: [
     BrowserModule,

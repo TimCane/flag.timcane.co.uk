@@ -1,5 +1,5 @@
-<div [ngSwitch]="gameState">
+<div [ngSwitch]="gameState$ | async" >
   <flag-loading *ngSwitchCase="'loading'"></flag-loading>
-  <flag-menu *ngSwitchCase="'menu'" (onStart)="start($event)"></flag-menu>
+  <flag-menu *ngSwitchCase="'menu'" (onStart)="start()"></flag-menu>
   <flag-game *ngSwitchCase="'in-progress'"></flag-game>
 </div>

@@ -1,10 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Settings } from '../models/settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsStore {
+
+  //#region selectedContinents
+  private readonly _selectedContinents: BehaviorSubject<string[]>;
+  readonly selectedContinents$: Observable<string[]>;
+
+  get selectedContinents(): string[] {
+    return this._selectedContinents.getValue();
+  }
+
+  set selectedContinents(val: string[]) {
+    this._selectedContinents.next(val);
+  }
+  //#endregion
 
   //#region duration
   private readonly _duration: BehaviorSubject<number>;
@@ -74,6 +88,9 @@ export class SettingsStore {
 
 
   constructor() {
+    this._selectedContinents = new BehaviorSubject<string[]>([]);
+    this.selectedContinents$ = this._selectedContinents.asObservable();
+
     this._duration = new BehaviorSubject<number>(20);
     this.duration$ = this._duration.asObservable();
 
@@ -90,5 +107,13 @@ export class SettingsStore {
     this.typeAheadFiltered$ = this._typeAheadFiltered.asObservable();
   }
 
+  update(settings: Settings){
+    this.selectedContinents = settings.selectedContinents;
+    this.duration = settings.duration;
+    this.randomise = settings.randomise;
+    this.tabCompletion = settings.tabCompletion;
+    this.typeAhead = settings.typeAhead;
+    this.typeAheadFiltered = settings.typeAheadFiltered;
+  }
 
 }

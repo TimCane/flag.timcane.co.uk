@@ -1,0 +1,13 @@
+<flag-countdown-timer [remainingTime]="remainingTime"></flag-countdown-timer>
+
+{{elapsedTime}}
+{{totalTime}}
+
+<div *ngIf="currentCountry$ | async; let currentCountry">
+    <h3>
+        {{currentCountry.name}} - {{currentCountry.code}}</h3>
+</div>
+
+<div  *ngFor="let country of remainingCountries$ | async;">
+    {{country.name}} - {{country.code}}
+</div>

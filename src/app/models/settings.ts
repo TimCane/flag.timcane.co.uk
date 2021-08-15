@@ -1,5 +1,5 @@
 export interface Settings {
-    continentArray: string[];
+    selectedContinents: string[];
     duration: number;
     randomise: boolean;
     tabCompletion: boolean;

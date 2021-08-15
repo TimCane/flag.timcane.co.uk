@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GameState } from './enums/game-state.enum';
 import { Config } from './models/config';
 import { Settings } from './models/settings';
@@ -11,11 +12,12 @@ import { DataStore } from './stores/data.store';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  gameState: GameState;
-
   constructor(private data: DataService, private state: DataStore) {
+    this.state.gameState = GameState.Loading;
+  }
 
-    this.gameState = GameState.Loading;
+  get gameState$(): Observable<GameState>{
+    return this.state.gameState$;
   }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
         (config: Config) => {
           this.state.setConfig(config);
 
-          this.gameState = GameState.Menu;
+          this.state.gameState = GameState.Menu;
         },
         (error) => {
           console.log(error);
@@ -36,10 +38,9 @@ export class AppComponent implements OnInit {
       );
   }
 
-  start(settings: Settings) {
+  start() {
     console.log("hello")
-    console.log(settings);
 
-    this.gameState = GameState.InProgress;
+    this.state.gameState = GameState.InProgress;
   }
 }
