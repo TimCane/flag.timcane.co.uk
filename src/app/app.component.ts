@@ -39,8 +39,6 @@ export class AppComponent implements OnInit {
   }
 
   start() {
-    console.log("hello")
-
     this.state.gameState = GameState.InProgress;
   }
 }

@@ -1,13 +1,18 @@
-<flag-countdown-timer [remainingTime]="remainingTime"></flag-countdown-timer>
-
-{{elapsedTime}}
-{{totalTime}}
-
-<div *ngIf="currentCountry$ | async; let currentCountry">
-    <h3>
-        {{currentCountry.name}} - {{currentCountry.code}}</h3>
-</div>
-
-<div  *ngFor="let country of remainingCountries$ | async;">
-    {{country.name}} - {{country.code}}
+<div class="game">
+    <div class="timer">
+        <flag-countdown-timer [remainingTime]="remainingTime"></flag-countdown-timer>
+    </div>
+    <div class="score">
+        <span class="current">{{score}}</span>
+        <span>/</span>
+        <span class="total">{{totalCountries}}</span>
+    </div>
+    <img class="previous flag" (click)="onPrev()" [src]="'/assets/images/flags/full/' + previousCountry.code + '.png'">
+    <img class="current flag" [src]="'/assets/images/flags/full/' + currentCountry.code + '.png'">
+    <img class="next flag" (click)="onNext()" [src]="'/assets/images/flags/full/' + nextCountry.code + '.png'">
+    <div class="guess">
+        <input type="text" class="background-input" [placeholder]="typeAhead">
+        <input type="text" class="search" [(ngModel)]="guess" (keydown)="preventDefaults($event)" (keyup)="onGuess()"
+            (keydown.arrowleft)="onPrev()" (keydown.tab)="onTab()" (keydown.arrowright)="onNext()">
+    </div>
 </div>
