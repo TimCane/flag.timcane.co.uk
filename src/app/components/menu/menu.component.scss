@@ -1,0 +1,49 @@
+.menu {
+    background: #fff;
+    margin: 1rem;
+}
+
+.continent-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    margin: 1rem;
+}
+
+.checkbox-input {
+    display: none;
+}
+
+.continent .image {
+    padding: 1rem;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #929295;
+    border-radius: 50px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+
+    ::ng-deep svg g{
+        fill: #929295;
+    }
+}
+
+.image {
+    position: relative;
+    overflow: hidden;
+}
+
+.selected .image {
+    background-color: #00acc8;
+    border: 2px solid #c0d23a;
+    ::ng-deep svg g{
+        fill: #c0d23a;
+    }
+}
+
+.continent-label{
+    text-align: center;
+}

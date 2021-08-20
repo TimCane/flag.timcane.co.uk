@@ -70,6 +70,10 @@ export class MenuComponent implements OnInit {
     this.settings.selectedContinents = options;
   }
 
+  isSelected(id: string) {
+    return this.selectedContinents.controls.some((ctrl: AbstractControl) => ctrl.value == id);
+  }
+
   onContinentChange(event: any) {
     if (event.target.checked) {
       this.selectedContinents.push(new FormControl(event.target.value));

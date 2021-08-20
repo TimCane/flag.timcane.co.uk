@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { GameState } from './enums/game-state.enum';
 import { Config } from './models/config';
 import { Settings } from './models/settings';
 import { DataService } from './services/data.service';
 import { DataStore } from './stores/data.store';
+import { Wait } from './utils/wait';
 
 @Component({
   selector: 'flag-root',
@@ -25,10 +26,11 @@ export class AppComponent implements OnInit {
   }
 
   getConfig() {
-    this.data.load()
+
+    forkJoin([this.data.load(), Wait.atleast(2000)])    
       .subscribe(
-        (config: Config) => {
-          this.state.setConfig(config);
+        (result) => {
+          this.state.setConfig(result[0]);
 
           this.state.gameState = GameState.Menu;
         },

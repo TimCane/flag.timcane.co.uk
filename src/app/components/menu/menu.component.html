@@ -1,67 +1,84 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+<div class="menu">
+    <div class="title">Menu</div>
 
-    <div class="continents">
-        Continents
-        <div class="form-group">
-            <div class="form-checkbox" *ngFor="let continent of continents$ | async; index as i">
-                <input class="checkbox-input" [id]="continent.id" type="checkbox" checked [value]="continent.id"
-                    (change)="onContinentChange($event)">
-                <label class="checkbox-label" [for]="continent.id">
-                    {{continent.name}} ({{continent.countries.length}} Countries)</label>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="continents">
+            <div class="heading">
+                Continents
+            </div>
+            <div class="continent-options">
+                <label [class.selected]="isSelected(continent.id)" class="continent" [for]="continent.id"
+                    *ngFor="let continent of continents$ | async; index as i">
+                    <flag-continent-svg-switcher [continentId]="continent.id" class="image" [class]="continent.id"> </flag-continent-svg-switcher>
+                    <input class="checkbox-input" [id]="continent.id" type="checkbox" checked [value]="continent.id"
+                        (change)="onContinentChange($event)">
+                    <div class="continent-label">
+                        {{continent.name}}</div>
+                </label>
             </div>
         </div>
-    </div>
 
-    <div class="duration">
-        <div class="form-group">
-            <label class="form-label" for="duration">Duration </label>
-            <input class="form-control" type="number" id="duration" name="duration" formControlName="duration">
-            <div class="form-feedback" *ngIf="duration.invalid && (duration.dirty || duration.touched)">
-                <div *ngIf="duration.errors?.required">
-                    Duration is required.
+        <div class="settings">
+            <div class="heading">
+                Settings
+            </div>
+            <div class="duration">
+                <div class="form-group">
+                    <label class="form-label" for="duration">Duration </label>
+                    <input class="form-control" type="number" id="duration" name="duration" formControlName="duration">
+                    <div class="form-feedback" *ngIf="duration.invalid && (duration.dirty || duration.touched)">
+                        <div *ngIf="duration.errors?.required">
+                            Duration is required.
+                        </div>
+                        <div *ngIf="duration.errors?.min">
+                            Duration must be greater than 0.
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="duration.errors?.min">
-                    Duration must be greater than 0.
+            </div>
+
+            <div class="randomise">
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input class="checkbox-input" id="randomise" type="checkbox" checked
+                            formControlName="randomise">
+                        <label class="checkbox-label" for="randomise">Randomise Order?</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="typeAhead">
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input class="checkbox-input" id="typeAhead" type="checkbox" checked
+                            formControlName="typeAhead">
+                        <label class="checkbox-label" for="typeAhead">Enable Type ahead?</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabCompletion">
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input class="checkbox-input" id="tabCompletion" type="checkbox" checked
+                            formControlName="tabCompletion">
+                        <label class="checkbox-label" for="tabCompletion">Enable Tab/Enter Completion?</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="typeAheadFiltered">
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input class="checkbox-input" id="typeAheadFiltered" type="checkbox" checked
+                            formControlName="typeAheadFiltered">
+                        <label class="checkbox-label" for="typeAheadFiltered">Type ahead only shows unanswered?</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="randomise">
-        <div class="form-group">
-            <div class="form-checkbox">
-                <input class="checkbox-input" id="randomise" type="checkbox" checked formControlName="randomise">
-                <label class="checkbox-label" for="randomise">Randomise Order?</label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="typeAhead">
-        <div class="form-group">
-            <div class="form-checkbox">
-                <input class="checkbox-input" id="typeAhead" type="checkbox" checked formControlName="typeAhead">
-                <label class="checkbox-label" for="typeAhead">Enable Type ahead?</label>
-            </div>
-        </div>
-    </div>
+        <button>Start</button>
+    </form>
 
-    <div class="tabCompletion">
-        <div class="form-group">
-            <div class="form-checkbox">
-                <input class="checkbox-input" id="tabCompletion" type="checkbox" checked formControlName="tabCompletion">
-                <label class="checkbox-label" for="tabCompletion">Enable Tab/Enter Completion?</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="typeAheadFiltered">
-        <div class="form-group">
-            <div class="form-checkbox">
-                <input class="checkbox-input" id="typeAheadFiltered" type="checkbox" checked formControlName="typeAheadFiltered">
-                <label class="checkbox-label" for="typeAheadFiltered">Type ahead only shows unanswered?</label>
-            </div>
-        </div>
-    </div>
-
-    <button>Start</button>
-</form>
+</div>

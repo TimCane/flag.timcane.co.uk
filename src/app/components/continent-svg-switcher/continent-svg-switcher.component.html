@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="continentId">
+    <svg-europe class="svg" *ngSwitchCase="'europe'"></svg-europe>
+    <svg-africa class="svg" *ngSwitchCase="'africa'"></svg-africa>
+    <svg-asia class="svg" *ngSwitchCase="'asia'"></svg-asia>
+    <svg-north-america class="svg" *ngSwitchCase="'north-america'"></svg-north-america>
+    <svg-oceania class="svg" *ngSwitchCase="'oceania'"></svg-oceania>
+    <svg-south-america class="svg" *ngSwitchCase="'south-america'"></svg-south-america>
+</ng-container>
